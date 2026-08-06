@@ -1,0 +1,25 @@
+---
+import SimpleContentLayout from "@/layouts/SimpleContentLayout.astro";
+---
+
+<SimpleContentLayout
+  eyebrow="Recursos · Soporte"
+  title="SLA y soporte post-lanzamiento"
+  intro="Niveles de servicio, tiempos de respuesta y canales de soporte una vez el proyecto está en producción."
+  description="Niveles de servicio y canales de soporte post-lanzamiento de Siscodex."
+  path="/recursos/soporte"
+  noindex
+>
+  <h2>Niveles de severidad</h2>
+  <ul>
+    <li><strong>Crítico:</strong> servicio caído en producción — respuesta en menos de 2 horas.</li>
+    <li><strong>Alto:</strong> funcionalidad degradada sin caída total — respuesta en menos de 8 horas hábiles.</li>
+    <li><strong>Normal:</strong> mejoras, bugs menores o consultas — respuesta en menos de 2 días hábiles.</li>
+  </ul>
+
+  <h2>Canales de soporte</h2>
+  <p>
+    El canal principal de soporte es el mismo utilizado durante el desarrollo (Slack o Teams). Para incidentes
+    críticos fuera de horario, se define un contacto de guardia al inicio del contrato de soporte.
+  </p>
+</SimpleContentLayout>

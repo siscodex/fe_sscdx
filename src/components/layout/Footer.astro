@@ -1,0 +1,62 @@
+---
+import { Icon } from "astro-icon/components";
+import { footerLinks } from "@/data/navigation";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-ink-700 bg-ink-950">
+  <div class="mx-auto max-w-(--container-page) px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+      <div class="flex flex-col gap-4">
+        <a href="/" class="flex shrink-0 items-center">
+          <img src="/logo.png" alt="Siscodex" width="182" height="20" class="h-6 w-auto" />
+        </a>
+        <p class="max-w-sm text-sm text-ink-400">
+          Estudio de ingeniería de software especializado en desarrollo a medida, arquitectura cloud e inteligencia
+          artificial para empresas que buscan crecer sin límites técnicos.
+        </p>
+        <div class="flex gap-3 pt-1">
+          <a
+            href="https://github.com/siscodex"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub de Siscodex"
+            class="flex size-9 items-center justify-center rounded-md border border-ink-600 text-ink-300 transition-colors hover:border-brand-400/50 hover:text-brand-300"
+          >
+            <Icon name="lucide:github" class="size-4" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/siscodex"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn de Siscodex"
+            class="flex size-9 items-center justify-center rounded-md border border-ink-600 text-ink-300 transition-colors hover:border-brand-400/50 hover:text-brand-300"
+          >
+            <Icon name="lucide:linkedin" class="size-4" />
+          </a>
+        </div>
+      </div>
+
+      {
+        footerLinks.map((group) => (
+          <div class="flex flex-col gap-3">
+            <h4 class="font-mono text-xs uppercase tracking-[0.2em] text-ink-400">{group.title}</h4>
+            {group.links.map((link) => (
+              <a href={link.href} class="text-sm text-ink-300 transition-colors hover:text-brand-300">
+                {link.label}
+              </a>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-14 flex flex-col gap-4 border-t border-ink-700 pt-8 text-xs text-ink-400 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} Siscodex. Todos los derechos reservados.</p>
+      <p class="font-mono">Diseñado y construido con Astro + TypeScript.</p>
+    </div>
+  </div>
+</footer>

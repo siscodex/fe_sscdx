@@ -1,0 +1,30 @@
+---
+import SimpleContentLayout from "@/layouts/SimpleContentLayout.astro";
+---
+
+<SimpleContentLayout
+  eyebrow="Recursos · Seguridad"
+  title="Buenas prácticas de seguridad"
+  intro="Lineamientos que seguimos en cada proyecto: gestión de secretos, revisión de código y auditorías."
+  description="Buenas prácticas de seguridad que aplicamos en los proyectos de desarrollo de Siscodex."
+  path="/recursos/seguridad"
+  noindex
+>
+  <h2>Gestión de secretos</h2>
+  <p>
+    Ninguna credencial se almacena en el código fuente. Usamos gestores de secretos (AWS Secrets Manager, variables
+    de entorno cifradas) y rotación periódica de llaves de acceso.
+  </p>
+
+  <h2>Revisión de código</h2>
+  <p>
+    Todo cambio pasa por revisión de al menos un ingeniero senior antes de integrarse a la rama principal, con
+    análisis estático automatizado en cada pull request.
+  </p>
+
+  <h2>Auditorías</h2>
+  <p>
+    Para proyectos que manejan datos sensibles, coordinamos auditorías de seguridad externas antes del lanzamiento a
+    producción.
+  </p>
+</SimpleContentLayout>

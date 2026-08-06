@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/sections/PageHeader.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import TechnologyBadge from "@/components/ui/TechnologyBadge.astro";
+import SectionTitle from "@/components/ui/SectionTitle.astro";
+import { technologies } from "@/data/technologies";
+import type { TechCategory } from "@/types";
+
+const categoryLabels: Record<TechCategory, string> = {
+  frontend: "Frontend",
+  backend: "Backend",
+  cloud: "Cloud & Infraestructura",
+  "data-ia": "Datos & IA",
+  devops: "DevOps",
+};
+
+const categories = Object.keys(categoryLabels) as TechCategory[];
+---
+
+<BaseLayout
+  title="Tecnología"
+  description="El stack tecnológico que usamos en Siscodex: frontend, backend, cloud, datos, inteligencia artificial y DevOps de nivel empresarial."
+  path="/tecnologia"
+>
+  <PageHeader
+    eyebrow="Stack tecnológico"
+    title="Tecnología madura, elegida con criterio"
+    description="No perseguimos tendencias: seleccionamos herramientas probadas en producción, con comunidad activa y soporte a largo plazo."
+  />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-14">
+        {
+          categories.map((category) => (
+            <div>
+              <SectionTitle title={categoryLabels[category]} />
+              <div class="mt-6 flex flex-wrap gap-3">
+                {technologies
+                  .filter((tech) => tech.category === category)
+                  .map((tech) => (
+                    <TechnologyBadge name={tech.name} icon={tech.icon} />
+                  ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="¿Tu equipo ya usa un stack distinto?"
+    description="Nos adaptamos a tu infraestructura existente cuando el proyecto lo requiere."
+  />
+</BaseLayout>

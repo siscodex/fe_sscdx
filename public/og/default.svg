@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0c0e" />
+      <stop offset="100%" stop-color="#17181b" />
+    </linearGradient>
+    <radialGradient id="glow1" cx="85%" cy="10%" r="55%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow2" cx="5%" cy="95%" r="55%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.26" />
+      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6ee7b7" />
+      <stop offset="100%" stop-color="#2dd4bf" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow1)" />
+  <rect width="1200" height="630" fill="url(#glow2)" />
+
+  <rect x="90" y="90" width="72" height="72" rx="16" fill="url(#mark)" />
+  <path d="M112 116 L134 141 L112 166" fill="none" stroke="#0b0c0e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  <line x1="145" y1="166" x2="180" y2="166" stroke="#0b0c0e" stroke-width="5" stroke-linecap="round" />
+
+  <text x="90" y="290" font-family="Arial, sans-serif" font-size="64" font-weight="700" fill="#f7f7f8">Siscodex</text>
+  <text x="90" y="345" font-family="Arial, sans-serif" font-size="30" fill="#9a9ca1">Ingeniería de software, cloud e IA</text>
+  <text x="90" y="395" font-family="Arial, sans-serif" font-size="30" fill="#9a9ca1">para empresas que buscan crecer sin límites.</text>
+</svg>

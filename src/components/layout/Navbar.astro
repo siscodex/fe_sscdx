@@ -1,0 +1,93 @@
+---
+import { Icon } from "astro-icon/components";
+import { mainNav } from "@/data/navigation";
+import Button from "@/components/ui/Button.astro";
+
+const currentPath = new URL(Astro.request.url).pathname;
+---
+
+<header
+  id="navbar"
+  class="fixed inset-x-0 top-0 z-50 border-b border-ink-800/70 bg-ink-950/75 backdrop-blur-xl transition-shadow duration-300"
+  data-navbar
+>
+  <nav class="mx-auto flex h-18 max-w-(--container-page) items-center justify-between overflow-hidden px-4 sm:px-6 lg:px-8">
+    <a href="/" class="flex shrink-0 items-center">
+      <img src="/logo.png" alt="Siscodex" width="182" height="20" class="h-5 w-auto sm:h-6" />
+    </a>
+
+    <div class="hidden items-center gap-8 md:flex">
+      {
+        mainNav.map((link) => (
+          <a
+            href={link.href}
+            aria-current={currentPath === link.href ? "page" : undefined}
+            class:list={[
+              "text-sm font-medium text-ink-300 transition-colors duration-200 hover:text-brand-300",
+              currentPath === link.href && "text-brand-300",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-3">
+      <Button href="/contacto" size="md" class="hidden md:inline-flex">Hablemos</Button>
+      <button
+        type="button"
+        aria-label="Abrir menú de navegación"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+        class="inline-flex size-10 items-center justify-center rounded-md text-ink-100 md:hidden"
+      >
+        <Icon name="lucide:menu" class="size-6" data-menu-icon-open />
+        <Icon name="lucide:x" class="hidden size-6" data-menu-icon-close />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="hidden border-t border-ink-700 bg-ink-950/98 backdrop-blur-xl md:hidden">
+    <div class="flex flex-col gap-1 px-4 py-4">
+      {
+        mainNav.map((link) => (
+          <a
+            href={link.href}
+            class="rounded-md px-3 py-3 text-base font-medium text-ink-200 hover:bg-ink-800 hover:text-brand-300"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <Button href="/contacto" size="md" class="mt-2 justify-center">Hablemos</Button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const navbar = document.querySelector("[data-navbar]");
+  const menuToggle = document.querySelector("[data-menu-toggle]");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const iconOpen = document.querySelector("[data-menu-icon-open]");
+  const iconClose = document.querySelector("[data-menu-icon-close]");
+
+  const onScroll = () => {
+    if (!navbar) return;
+    navbar.classList.toggle("shadow-lg", window.scrollY > 8);
+    navbar.classList.toggle("shadow-black/20", window.scrollY > 8);
+  };
+
+  document.addEventListener("astro:page-load", () => {
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    menuToggle?.addEventListener("click", () => {
+      const isOpen = mobileMenu?.classList.toggle("hidden") === false;
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      iconOpen?.classList.toggle("hidden", isOpen);
+      iconClose?.classList.toggle("hidden", !isOpen);
+    });
+  });
+</script>

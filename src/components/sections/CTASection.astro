@@ -1,0 +1,40 @@
+---
+import Button from "@/components/ui/Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+}
+
+const {
+  title,
+  description,
+  primaryCta = { label: "Agendar una consulta", href: "/contacto" },
+  secondaryCta,
+} = Astro.props;
+---
+
+<section class="py-20">
+  <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
+    <div
+      class="relative overflow-hidden rounded-xl border border-ink-700 bg-gradient-to-br from-ink-800 via-ink-800 to-ink-900 px-8 py-14 text-center sm:px-16"
+    >
+      <div class="pointer-events-none absolute -right-16 -top-16 size-64 rounded-full bg-brand-500/15 blur-[90px]"></div>
+      <div class="pointer-events-none absolute -bottom-16 -left-16 size-64 rounded-full bg-accent-500/15 blur-[90px]"></div>
+
+      <h2 class="relative text-2xl font-semibold text-ink-50 sm:text-3xl">{title}</h2>
+      <p class="relative mx-auto mt-3 max-w-xl text-ink-300">{description}</p>
+
+      <div class="relative mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <Button href={primaryCta.href} size="lg" icon="arrow-right">{primaryCta.label}</Button>
+        {secondaryCta && (
+          <Button href={secondaryCta.href} variant="secondary" size="lg">
+            {secondaryCta.label}
+          </Button>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

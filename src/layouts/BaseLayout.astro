@@ -1,0 +1,38 @@
+---
+import { ClientRouter } from "astro:transitions";
+import SEO from "@/components/seo/SEO.astro";
+import Navbar from "@/components/layout/Navbar.astro";
+import Footer from "@/components/layout/Footer.astro";
+import type { SEOProps } from "@/types";
+import "@/styles/global.css";
+
+interface Props extends SEOProps {}
+
+const { title, description, path, image, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0c0e" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <SEO title={title} description={description} path={path} image={image} noindex={noindex} />
+    <ClientRouter />
+  </head>
+  <body>
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      import { initScrollReveal } from "@/scripts/reveal";
+
+      document.addEventListener("astro:page-load", initScrollReveal);
+    </script>
+  </body>
+</html>

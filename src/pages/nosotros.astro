@@ -1,0 +1,62 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/sections/PageHeader.astro";
+import WhyUs from "@/components/sections/WhyUs.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import { Icon } from "astro-icon/components";
+
+const values = [
+  {
+    icon: "target",
+    title: "Enfoque en resultados",
+    description: "Cada decisión técnica se evalúa por su impacto en el negocio del cliente, no por moda tecnológica.",
+  },
+  {
+    icon: "eye",
+    title: "Transparencia técnica",
+    description: "Reportamos avances reales, incluyendo riesgos y bloqueos, en lugar de actualizaciones vacías.",
+  },
+  {
+    icon: "graduation-cap",
+    title: "Mejora continua",
+    description: "Revisiones de código, retrospectivas y actualización constante de nuestras prácticas de ingeniería.",
+  },
+];
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Conoce al equipo de ingeniería detrás de Siscodex: nuestra misión, valores y forma de trabajar con empresas."
+  path="/nosotros"
+>
+  <PageHeader
+    eyebrow="Nosotros"
+    title="Un equipo de ingeniería, no una fábrica de tickets"
+    description="Siscodex nació para ofrecer a las empresas el mismo nivel de ingeniería que tendría un equipo interno senior, sin la fricción de contratar y gestionar uno desde cero."
+  />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {
+          values.map((value) => (
+            <div class="rounded-lg border border-ink-700 bg-ink-800/30 p-6" data-reveal>
+              <div class="mb-4 flex size-11 items-center justify-center rounded-lg bg-brand-400/10 text-brand-300">
+                <Icon name={`lucide:${value.icon}`} class="size-5" />
+              </div>
+              <h3 class="text-base font-semibold text-ink-50">{value.title}</h3>
+              <p class="mt-2 text-sm text-ink-300">{value.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <WhyUs />
+
+  <CTASection
+    title="¿Quieres conocer al equipo?"
+    description="Agenda una llamada inicial sin costo y conversemos sobre tu proyecto."
+  />
+</BaseLayout>

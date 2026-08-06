@@ -1,0 +1,59 @@
+---
+import Button from "@/components/ui/Button.astro";
+import StatusPill from "@/components/ui/StatusPill.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  highlight?: string;
+  description: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+}
+
+const {
+  eyebrow = "Software Engineering Studio",
+  title,
+  highlight,
+  description,
+  primaryCta = { label: "Hablemos de tu proyecto", href: "/contacto" },
+  secondaryCta = { label: "Conoce nuestros servicios", href: "/servicios" },
+} = Astro.props;
+---
+
+<section class="relative flex min-h-[90vh] items-center overflow-hidden pt-28 pb-20">
+  <div class="pointer-events-none absolute inset-0 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent)]"></div>
+  <div
+    class="pointer-events-none absolute -top-32 right-[-10%] size-[36rem] animate-drift rounded-full bg-brand-500/10 blur-[110px]"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute bottom-[-20%] left-[-10%] size-[30rem] animate-drift rounded-full bg-accent-500/10 blur-[110px]"
+    style="animation-delay: -8s"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl animate-fade-in-up">
+      <StatusPill class="mb-6">{eyebrow}</StatusPill>
+
+      <h1 class="text-4xl font-semibold leading-[1.1] text-ink-50 sm:text-5xl lg:text-6xl">
+        {title}{" "}
+        {highlight && <span class="text-gradient-brand">{highlight}</span>}
+      </h1>
+
+      <p class="mt-6 max-w-2xl text-lg text-ink-300 sm:text-xl">
+        {description}
+      </p>
+
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+        <Button href={primaryCta.href} size="lg" icon="arrow-right">
+          {primaryCta.label}
+        </Button>
+        <Button href={secondaryCta.href} variant="secondary" size="lg">
+          {secondaryCta.label}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

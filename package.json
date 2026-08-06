@@ -1,0 +1,40 @@
+{
+  "name": "siscodex-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web corporativo oficial de Siscodex — ingeniería de software, cloud e inteligencia artificial.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource-variable/inter": "^5.2.5",
+    "@fontsource-variable/jetbrains-mono": "^5.2.5",
+    "@fontsource-variable/space-grotesk": "^5.2.5",
+    "@iconify-json/lucide": "^1.2.31",
+    "astro": "^7.1.6",
+    "astro-icon": "^1.1.5",
+    "motion": "^12.4.7",
+    "tailwindcss": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
+  }
+}
