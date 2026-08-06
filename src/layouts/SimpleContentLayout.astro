@@ -1,0 +1,50 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/sections/PageHeader.astro";
+import type { SEOProps } from "@/types";
+
+interface Props extends SEOProps {
+  eyebrow: string;
+  intro: string;
+}
+
+const { eyebrow, intro, ...seo } = Astro.props;
+---
+
+<BaseLayout {...seo}>
+  <PageHeader eyebrow={eyebrow} title={seo.title} description={intro} />
+  <section class="pb-24">
+    <div class="content-block mx-auto max-w-2xl px-4 text-ink-300 sm:px-6 lg:px-8">
+      <slot />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .content-block :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-ink-50);
+  }
+  .content-block :global(p) {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+  .content-block :global(ul) {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .content-block :global(a) {
+    color: var(--color-brand-400);
+    text-underline-offset: 2px;
+  }
+  .content-block :global(a:hover) {
+    text-decoration: underline;
+  }
+</style>

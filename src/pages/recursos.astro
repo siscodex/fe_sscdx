@@ -1,0 +1,54 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHeader from "@/components/sections/PageHeader.astro";
+import CTASection from "@/components/sections/CTASection.astro";
+import { Icon } from "astro-icon/components";
+import { resources } from "@/data/technologies";
+---
+
+<BaseLayout
+  title="Recursos"
+  description="Documentación, guías de onboarding y recursos de soporte para clientes actuales de Siscodex."
+  path="/recursos"
+  noindex
+>
+  <PageHeader
+    eyebrow="Recursos"
+    title="Documentación para clientes actuales"
+    description="Todo lo que tu equipo necesita para trabajar con nosotros: guías de proceso, documentación técnica y canales de soporte."
+  />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {
+          resources.map((resource) => (
+            <a
+              href={resource.href}
+              class="group flex flex-col rounded-lg border border-ink-700 bg-ink-800/30 p-6 transition-colors duration-300 hover:border-brand-400/40"
+            >
+              <div class="flex items-center justify-between">
+                <span class="flex size-11 items-center justify-center rounded-lg bg-ink-700/60 text-brand-400">
+                  <Icon name={`lucide:${resource.icon}`} class="size-5" />
+                </span>
+                <span class="font-mono text-[11px] uppercase tracking-wider text-ink-400">{resource.tag}</span>
+              </div>
+              <h3 class="mt-5 text-lg font-semibold text-ink-50">{resource.title}</h3>
+              <p class="mt-2 text-sm text-ink-300">{resource.description}</p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand-300 transition-transform group-hover:translate-x-1">
+                Ver más
+                <Icon name="lucide:arrow-right" class="size-4" />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="¿Eres cliente y no encuentras lo que buscas?"
+    description="Escríbenos directamente y te dirigimos al recurso o persona correcta."
+    primaryCta={{ label: "Contactar soporte", href: "/contacto" }}
+  />
+</BaseLayout>

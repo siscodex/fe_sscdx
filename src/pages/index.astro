@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/sections/Hero.astro";
+import WhyUs from "@/components/sections/WhyUs.astro";
+import ServicesGrid from "@/components/sections/ServicesGrid.astro";
+import ProcessSection from "@/components/sections/ProcessSection.astro";
+import ProjectsGrid from "@/components/sections/ProjectsGrid.astro";
+import TechStack from "@/components/sections/TechStack.astro";
+import ContactForm from "@/components/sections/ContactForm.astro";
+---
+
+<BaseLayout
+  title="Siscodex"
+  description="Estudio de ingeniería de software especializado en desarrollo a medida, arquitectura cloud e inteligencia artificial para empresas que buscan crecer sin límites técnicos."
+  path="/"
+>
+  <Hero
+    title="Ingeniería de software sólida para empresas que buscan"
+    highlight="crecer sin límites."
+    description="Diseñamos aplicaciones web y móviles escalables sobre infraestructura cloud optimizada, con experiencia técnica senior aplicada directamente a los retos de tu negocio."
+  />
+  <WhyUs />
+  <ServicesGrid limit={6} />
+  <ProcessSection />
+  <ProjectsGrid limit={4} showCta />
+  <TechStack />
+  <ContactForm />
+</BaseLayout>

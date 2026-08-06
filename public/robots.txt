@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /recursos/
+
+Sitemap: https://siscodex.com/sitemap-index.xml

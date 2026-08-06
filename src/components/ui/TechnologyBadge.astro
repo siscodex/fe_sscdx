@@ -1,0 +1,22 @@
+---
+import { Icon } from "astro-icon/components";
+import type { IconName } from "@/types";
+
+interface Props {
+  name: string;
+  icon: IconName;
+  class?: string;
+}
+
+const { name, icon, class: className } = Astro.props;
+---
+
+<span
+  class:list={[
+    "group inline-flex items-center gap-2 rounded-md border border-ink-600 bg-ink-800/50 px-3.5 py-2 text-sm text-ink-200 transition-colors duration-200 hover:border-brand-400/50 hover:text-brand-300",
+    className,
+  ]}
+>
+  <Icon name={`lucide:${icon}`} class="size-4 text-ink-400 transition-colors group-hover:text-brand-400" />
+  {name}
+</span>

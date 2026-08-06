@@ -1,0 +1,27 @@
+---
+import SectionTitle from "@/components/ui/SectionTitle.astro";
+import TechnologyBadge from "@/components/ui/TechnologyBadge.astro";
+import { technologies } from "@/data/technologies";
+
+interface Props {
+  align?: "left" | "center";
+}
+
+const { align = "center" } = Astro.props;
+---
+
+<section class="py-24">
+  <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
+    <SectionTitle
+      align={align}
+      eyebrow="Stack tecnológico"
+      title="Herramientas de nivel empresarial"
+      description="Seleccionamos tecnología madura y probada en producción, no la más nueva por moda."
+      class={align === "center" ? "mx-auto items-center text-center" : undefined}
+    />
+
+    <div class:list={["mt-10 flex flex-wrap gap-3", align === "center" && "justify-center"]}>
+      {technologies.map((tech) => <TechnologyBadge name={tech.name} icon={tech.icon} />)}
+    </div>
+  </div>
+</section>
