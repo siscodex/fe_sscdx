@@ -68,27 +68,50 @@ const currentPath = new URL(Astro.request.url).pathname;
 </header>
 
 <script>
-  const navbar = document.querySelector("[data-navbar]");
-  const menuToggle = document.querySelector("[data-menu-toggle]");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const iconOpen = document.querySelector("[data-menu-icon-open]");
-  const iconClose = document.querySelector("[data-menu-icon-close]");
-
-  const onScroll = () => {
+  // Delegación de eventos en `document`: con las View Transitions de Astro,
+  // el navbar se reemplaza por completo en cada navegación, así que fijar
+  // referencias a elementos concretos una sola vez las deja "muertas" tras
+  // la primera navegación. Consultando el DOM en cada evento, siempre se
+  // opera sobre lo que esté visible en ese momento.
+  function onScroll() {
+    const navbar = document.querySelector("[data-navbar]");
     if (!navbar) return;
-    navbar.classList.toggle("shadow-lg", window.scrollY > 8);
-    navbar.classList.toggle("shadow-black/20", window.scrollY > 8);
-  };
+    const scrolled = window.scrollY > 8;
+    navbar.classList.toggle("shadow-lg", scrolled);
+    navbar.classList.toggle("shadow-black/20", scrolled);
+  }
 
+  function resetMobileMenu() {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuToggle = document.querySelector("[data-menu-toggle]");
+    const iconOpen = document.querySelector("[data-menu-icon-open]");
+    const iconClose = document.querySelector("[data-menu-icon-close]");
+    mobileMenu?.classList.add("hidden");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    iconOpen?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
   document.addEventListener("astro:page-load", () => {
     onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+    // Si una navegación con View Transitions ocurrió con el menú abierto,
+    // que la página nueva arranque siempre con el menú cerrado.
+    resetMobileMenu();
+  });
 
-    menuToggle?.addEventListener("click", () => {
-      const isOpen = mobileMenu?.classList.toggle("hidden") === false;
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      iconOpen?.classList.toggle("hidden", isOpen);
-      iconClose?.classList.toggle("hidden", !isOpen);
-    });
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    const toggle = target instanceof Element ? target.closest("[data-menu-toggle]") : null;
+    if (!toggle) return;
+
+    const mobileMenu = document.getElementById("mobile-menu");
+    const iconOpen = document.querySelector("[data-menu-icon-open]");
+    const iconClose = document.querySelector("[data-menu-icon-close]");
+
+    const isOpen = mobileMenu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    iconOpen?.classList.toggle("hidden", isOpen);
+    iconClose?.classList.toggle("hidden", !isOpen);
   });
 </script>
