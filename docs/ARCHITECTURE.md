@@ -249,9 +249,10 @@ formulario y el scroll-reveal se resuelven con `<script>` vanilla por componente
 
 Definida en `src/styles/global.css` dentro de `@theme`, como dos escalas:
 
-- **`ink-{50..950}`** — fondo/superficie/texto. Gris carbón neutro (sin tinte azul), para un
-  fondo oscuro elegante sin perder legibilidad ni contraste. `ink-950` (#0b0c0e) es el fondo base;
-  `ink-50` (#f7f7f8) es el texto de mayor énfasis (titulares).
+- **`ink-{50..950}`** — fondo/superficie/texto. Gris carbón neutro (sin tinte azul), deliberadamente
+  más claro que un negro puro — un dark mode "gris" se percibe menos técnico/agresivo para
+  audiencias no desarrolladoras que un negro casi absoluto. `ink-950` (#1a1b1e) es el fondo base;
+  `ink-50` (#f8f8f9) es el texto de mayor énfasis (titulares).
 - **`brand-{300..700}`** (verde esmeralda) — único color de marca: CTAs, enlaces activos, iconos,
   eyebrows y acentos de datos/código. `brand-500` (#10b981) es el tono principal.
 - **`accent-{300..700}`** (verde azulado / teal) — variación tonal dentro de la misma familia,
@@ -260,7 +261,10 @@ Definida en `src/styles/global.css` dentro de `@theme`, como dos escalas:
 
 Esta paleta reemplazó una primera iteración cian/violeta: el cliente pidió alinear el sitio con un
 verde esmeralda de referencia, y de paso se aprovechó para quitar el tinte azul del fondo y dejarlo
-en un carbón neutro. Sigue el mismo espíritu Vercel/Linear/Stripe: superficies oscuras sin
+en un carbón neutro. Poco después se subió la luminosidad de toda la escala `ink` (el fondo pasó de
+casi negro a un gris oscuro real) porque el negro casi puro se percibía "demasiado técnico" para una
+audiencia de compradores no desarrolladores — ver [§CLAUDE.md](../CLAUDE.md) para el detalle de
+por qué. Sigue el mismo espíritu Vercel/Linear/Stripe: superficies oscuras sin
 calidez, un único acento saturado usado con moderación (nunca como color de fondo grande) y
 gradientes sutiles solo en elementos de foco (botón primario, blobs de fondo del Hero).
 

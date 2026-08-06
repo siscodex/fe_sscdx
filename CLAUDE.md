@@ -56,7 +56,10 @@ si cambia la paleta, esos tres hay que tocarlos a mano.
   tono principal (botones, iconos, eyebrows). `accent-*` es una variación tonal (verde azulado)
   usada solo para profundidad en gradientes/blobs de fondo — deliberadamente **no** es un segundo
   color de marca independiente.
-- **Fondo: carbón neutro, sin tinte azul.** `ink-950 #0b0c0e` → `ink-50 #f7f7f8`.
+- **Fondo: gris carbón, no negro puro.** `ink-950 #1a1b1e` → `ink-50 #f8f8f9`. Se subió a
+  propósito desde un casi-negro (`#0b0c0e`) porque se sentía "demasiado técnico/hacker" para
+  audiencia no desarrolladora — ver punto 6 de "Historial de decisiones". Si alguien propone
+  oscurecer el fondo otra vez, primero confirmar con el cliente: ya se probó y se descartó.
 - **Tipografía**: Space Grotesk (display) / Inter (body) / JetBrains Mono (labels/mono), variables
   autohospedadas vía `@fontsource-variable`, sin CDN de Google Fonts.
 - **Radios**: `--radius-md: 0.625rem` es el valor por defecto en tarjetas y botones.
@@ -92,6 +95,13 @@ propósito para igualar una referencia visual real que compartió el cliente.
    corrigió haciendo el fondo translúcido (`bg-ink-950/75 backdrop-blur-xl`) permanente — el scroll
    ahora solo añade una sombra sutil. Si se reintroduce un navbar "transparente al inicio", revisar
    que el `Hero` tenga suficiente `padding-top` y que el fondo no dependa de JS para aparecer.
+6. **V3 — se aclaró el fondo (mismo día que V2)**: con Canopy ya implementado, el cliente vio el
+   sitio real y dio feedback de que se sentía "demasiado tech" y podía alejar a compradores no
+   técnicos — específicamente el fondo casi negro. Se subió toda la escala `ink` de un casi-negro
+   (`ink-950 #0b0c0e`) a un gris carbón real (`ink-950 #1a1b1e`), manteniendo los mismos pasos
+   relativos de la escala. Sigue siendo dark mode, solo que se lee como "gris", no "negro". Si se
+   toca el fondo de nuevo, este es el motivo — no es un tema de contraste/accesibilidad, es
+   percepción de marca ante audiencia no técnica.
 
 ## Pendientes conocidos antes de un lanzamiento real
 

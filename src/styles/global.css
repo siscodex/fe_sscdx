@@ -22,17 +22,17 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", monospace;
 
   /* ---------- Escala "ink": fondo/superficie/texto (azul-negro elegante) ---------- */
-  --color-ink-950: #0b0c0e;
-  --color-ink-900: #111214;
-  --color-ink-800: #17181b;
-  --color-ink-700: #232427;
-  --color-ink-600: #34363a;
-  --color-ink-500: #52555a;
-  --color-ink-400: #77797f;
-  --color-ink-300: #9a9ca1;
-  --color-ink-200: #c1c3c7;
-  --color-ink-100: #e4e5e7;
-  --color-ink-50: #f7f7f8;
+  --color-ink-950: #1a1b1e;
+  --color-ink-900: #202124;
+  --color-ink-800: #26272a;
+  --color-ink-700: #34353a;
+  --color-ink-600: #45474c;
+  --color-ink-500: #5c5e63;
+  --color-ink-400: #7c7e83;
+  --color-ink-300: #9d9fa4;
+  --color-ink-200: #c2c4c8;
+  --color-ink-100: #e6e7e9;
+  --color-ink-50: #f8f8f9;
 
   /* ---------- Marca: verde esmeralda (acción primaria / dato / código) ---------- */
   --color-brand-300: #6ee7b7;
