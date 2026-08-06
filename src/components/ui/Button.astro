@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { withBase } from "@/utils/url";
 import type { IconName } from "@/types";
 
 type Variant = "primary" | "secondary" | "ghost";
@@ -47,9 +48,10 @@ const sizes: Record<Size, string> = {
 
 const classes = [base, variants[variant], sizes[size], className].filter(Boolean).join(" ");
 const Tag = href ? "a" : "button";
+const resolvedHref = href ? withBase(href) : undefined;
 ---
 
-<Tag class={classes} href={href} type={href ? undefined : type ?? "button"} target={target} rel={rel}>
+<Tag class={classes} href={resolvedHref} type={href ? undefined : type ?? "button"} target={target} rel={rel}>
   {icon && iconPosition === "left" && <Icon name={`lucide:${icon}`} class="size-4" />}
   <slot />
   {icon && iconPosition === "right" && <Icon name={`lucide:${icon}`} class="size-4" />}

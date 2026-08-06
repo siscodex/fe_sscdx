@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { withBase } from "@/utils/url";
 import type { Service } from "@/types";
 
 interface Props {
@@ -10,7 +11,7 @@ const { service } = Astro.props;
 ---
 
 <a
-  href={service.href}
+  href={withBase(service.href)}
   class="group relative flex h-full flex-col overflow-hidden rounded-lg border border-ink-700/80 bg-ink-800/40 p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-brand-400/40"
   data-reveal
 >

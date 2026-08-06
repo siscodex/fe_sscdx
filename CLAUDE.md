@@ -50,6 +50,14 @@ es, en teoría, un cambio de un solo archivo — así se hizo el rebrand de cian
 procesa: `public/favicon.svg`, `public/og/default.svg` y el `theme-color` en `BaseLayout.astro` —
 si cambia la paleta, esos tres hay que tocarlos a mano.
 
+**Segunda regla de oro**: cualquier `href`/`src` interno que empiece con `/` (rutas de página,
+`/logo.png`, `/favicon.svg`) **debe** pasar por `withBase()` de `src/utils/url.ts`. `Button.astro`
+ya lo aplica internamente, así que todo lo que use `<Button href="...">` está cubierto gratis —
+pero un `<a href="/algo">` o `<img src="/algo">` escrito a mano, no. Si no se envuelve, el link
+funciona en local y en producción con dominio propio (`base: "/"`), pero se rompe apenas alguien
+prueba en un GitHub Pages de proyecto (`base: "/fe_sscdx"`) — es exactamente el bug que se encontró
+y arregló la primera vez que se probó ahí (ver punto 7 de "Historial de decisiones").
+
 ## Sistema de diseño actual (estado real, agosto 2026)
 
 - **Un solo acento de marca: verde esmeralda.** `brand-500 #10b981` / `brand-400 #34d399` es el
@@ -102,9 +110,21 @@ propósito para igualar una referencia visual real que compartió el cliente.
    relativos de la escala. Sigue siendo dark mode, solo que se lee como "gris", no "negro". Si se
    toca el fondo de nuevo, este es el motivo — no es un tema de contraste/accesibilidad, es
    percepción de marca ante audiencia no técnica.
+7. **Primer deploy real a GitHub Pages (repo se hizo público)**: Pages para repos privados requiere
+   plan de pago, así que el repo se hizo público (se auditó todo el historial de commits antes —
+   sin secretos). Al probar en `siscodex.github.io/fe_sscdx` con `PUBLIC_BASE_PATH: /fe_sscdx`
+   aparecieron dos bugs reales: (a) los assets de Vite sí llevaban el prefijo automáticamente, pero
+   (b) **todo `href`/`src` interno escrito a mano en el markup no** — nav, footer, logo, favicon,
+   sitemap. Se creó `src/utils/url.ts` (`withBase()`) y se aplicó en `Button.astro` + cada `<a>`/
+   `<img>` interno suelto. Ver la "Segunda regla de oro" arriba.
 
 ## Pendientes conocidos antes de un lanzamiento real
 
+- **⚠️ `PUBLIC_BASE_PATH` en `.github/workflows/deploy.yml` está en `/fe_sscdx` temporalmente**
+  (repo público, probando en `siscodex.github.io/fe_sscdx` sin DNS todavía). Cuando el DNS de
+  `siscodex.com` apunte a GitHub Pages y el dominio quede verificado en Settings → Pages, hay que
+  volver a poner `PUBLIC_BASE_PATH: /` — si no, el sitio en el dominio real quedará sin estilos
+  (mismo síntoma que se corrigió acá: CSS/JS apuntando a la ruta equivocada).
 - `public/og/default.svg` es un placeholder generado por código (gradiente + logo + texto).
   Twitter/X no renderiza SVG en `og:image` — sustituir por un PNG/JPG 1200×630 real antes de
   publicar (ver `docs/ARCHITECTURE.md` §5.4).

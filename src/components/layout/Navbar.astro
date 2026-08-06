@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import { mainNav } from "@/data/navigation";
 import Button from "@/components/ui/Button.astro";
+import { withBase } from "@/utils/url";
 
 const currentPath = new URL(Astro.request.url).pathname;
 ---
@@ -12,19 +13,19 @@ const currentPath = new URL(Astro.request.url).pathname;
   data-navbar
 >
   <nav class="mx-auto flex h-18 max-w-(--container-page) items-center justify-between overflow-hidden px-4 sm:px-6 lg:px-8">
-    <a href="/" class="flex shrink-0 items-center">
-      <img src="/logo.png" alt="Siscodex" width="182" height="20" class="h-5 w-auto sm:h-6" />
+    <a href={withBase("/")} class="flex shrink-0 items-center">
+      <img src={withBase("/logo.png")} alt="Siscodex" width="182" height="20" class="h-5 w-auto sm:h-6" />
     </a>
 
     <div class="hidden items-center gap-8 md:flex">
       {
         mainNav.map((link) => (
           <a
-            href={link.href}
-            aria-current={currentPath === link.href ? "page" : undefined}
+            href={withBase(link.href)}
+            aria-current={currentPath === withBase(link.href) ? "page" : undefined}
             class:list={[
               "text-sm font-medium text-ink-300 transition-colors duration-200 hover:text-brand-300",
-              currentPath === link.href && "text-brand-300",
+              currentPath === withBase(link.href) && "text-brand-300",
             ]}
           >
             {link.label}
@@ -54,7 +55,7 @@ const currentPath = new URL(Astro.request.url).pathname;
       {
         mainNav.map((link) => (
           <a
-            href={link.href}
+            href={withBase(link.href)}
             class="rounded-md px-3 py-3 text-base font-medium text-ink-200 hover:bg-ink-800 hover:text-brand-300"
           >
             {link.label}
