@@ -33,10 +33,12 @@ jobs:
       - name: Type-check y build
         run: npm run build
         env:
-          # Dejar en "/" cuando se despliega con dominio propio (CNAME).
-          # Cambiar a "/nombre-del-repositorio" solo para un GitHub Pages de
-          # proyecto sin dominio propio (usuario.github.io/repo).
-          PUBLIC_BASE_PATH: /
+          # TEMPORAL: mientras se prueba en siscodex.github.io/fe_sscdx (sin
+          # dominio propio todavía). Cuando el DNS de siscodex.com ya apunte a
+          # GitHub Pages y el dominio quede verificado en Settings → Pages,
+          # volver a "/" (ver public/CNAME) — si no, el sitio en el dominio
+          # real quedará sin estilos por el mismo motivo que este cambio arregla.
+          PUBLIC_BASE_PATH: /fe_sscdx
 
       - name: Subir artefacto de Pages
         uses: actions/upload-pages-artifact@v3

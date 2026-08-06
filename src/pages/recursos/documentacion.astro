@@ -1,5 +1,6 @@
 ---
 import SimpleContentLayout from "@/layouts/SimpleContentLayout.astro";
+import { withBase } from "@/utils/url";
 ---
 
 <SimpleContentLayout
@@ -23,7 +24,7 @@ import SimpleContentLayout from "@/layouts/SimpleContentLayout.astro";
   </p>
 
   <p>
-    Si eres cliente actual y no tienes acceso a tu espacio de documentación, <a href="/contacto">contáctanos</a> y lo
+    Si eres cliente actual y no tienes acceso a tu espacio de documentación, <a href={withBase("/contacto")}>contáctanos</a> y lo
     habilitamos en menos de 24 horas.
   </p>
 </SimpleContentLayout>

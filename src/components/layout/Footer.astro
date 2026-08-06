@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { footerLinks } from "@/data/navigation";
+import { withBase } from "@/utils/url";
 
 const year = new Date().getFullYear();
 ---
@@ -9,8 +10,8 @@ const year = new Date().getFullYear();
   <div class="mx-auto max-w-(--container-page) px-4 py-16 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
       <div class="flex flex-col gap-4">
-        <a href="/" class="flex shrink-0 items-center">
-          <img src="/logo.png" alt="Siscodex" width="182" height="20" class="h-6 w-auto" />
+        <a href={withBase("/")} class="flex shrink-0 items-center">
+          <img src={withBase("/logo.png")} alt="Siscodex" width="182" height="20" class="h-6 w-auto" />
         </a>
         <p class="max-w-sm text-sm text-ink-400">
           Estudio de ingeniería de software especializado en desarrollo a medida, arquitectura cloud e inteligencia
@@ -43,7 +44,7 @@ const year = new Date().getFullYear();
           <div class="flex flex-col gap-3">
             <h4 class="font-mono text-xs uppercase tracking-[0.2em] text-ink-400">{group.title}</h4>
             {group.links.map((link) => (
-              <a href={link.href} class="text-sm text-ink-300 transition-colors hover:text-brand-300">
+              <a href={withBase(link.href)} class="text-sm text-ink-300 transition-colors hover:text-brand-300">
                 {link.label}
               </a>
             ))}
