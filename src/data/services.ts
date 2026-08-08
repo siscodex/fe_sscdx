@@ -83,22 +83,45 @@ export const advantages: Advantage[] = [
 export const processSteps: ProcessStep[] = [
   {
     number: "01",
-    title: "Discovery",
-    description: "Análisis profundo de requerimientos técnicos y objetivos de negocio antes de escribir una línea de código.",
+    title: "Descubrimiento",
+    description: "Entendemos a fondo tu negocio y tus objetivos antes de proponer cualquier solución.",
   },
   {
     number: "02",
-    title: "Arquitectura",
-    description: "Diseño de sistemas escalables y selección del stack tecnológico óptimo para tu contexto y presupuesto.",
+    title: "Planeación",
+    description: "Definimos el plan de trabajo, el alcance y las herramientas adecuadas para tu presupuesto y tus tiempos.",
   },
   {
     number: "03",
-    title: "Desarrollo iterativo",
-    description: "Construcción ágil con entregas continuas, revisiones de código y pruebas automatizadas en cada sprint.",
+    title: "Desarrollo",
+    description: "Construimos por etapas, con entregas frecuentes que puedes revisar y ajustar en el camino.",
   },
   {
     number: "04",
-    title: "Despliegue y monitoreo",
-    description: "Lanzamiento seguro sobre infraestructura automatizada, con observabilidad desde el primer día.",
+    title: "Lanzamiento",
+    description: "Puesta en marcha segura, con acompañamiento activo desde el primer día.",
+  },
+];
+
+export const processCapabilities: Advantage[] = [
+  {
+    icon: "search-check",
+    title: "Análisis a fondo",
+    description: "Entendemos tu negocio antes de proponer una solución, para que el alcance sea real desde el primer día.",
+  },
+  {
+    icon: "trending-up",
+    title: "Avances visibles",
+    description: "Ves resultados concretos en cada etapa del proyecto, con avances que puedes revisar en el camino.",
+  },
+  {
+    icon: "bar-chart-3",
+    title: "Seguimiento y control",
+    description: "Reportes claros de avance y visibilidad total sobre tiempos y presupuesto en cada etapa.",
+  },
+  {
+    icon: "users",
+    title: "Equipo dedicado",
+    description: "Un equipo dedicado por completo a tu proyecto, con atención directa y constante.",
   },
 ];
