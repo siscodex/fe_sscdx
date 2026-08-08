@@ -60,8 +60,8 @@ const categoryIcon: Record<Project["category"], string> = {
                   <p class="mt-6 font-mono text-xs uppercase tracking-[0.15em] text-brand-400">Qué incluye</p>
                   <ul class="mt-3 flex flex-col gap-2 text-sm text-ink-200">
                     {project.capabilities.map((capability) => (
-                      <li class="flex items-start gap-2">
-                        <span class="mt-1.5 text-brand-400/70">–</span>
+                      <li class="flex items-baseline gap-2">
+                        <span class="text-brand-400/70">–</span>
                         {capability}
                       </li>
                     ))}
