@@ -36,21 +36,23 @@ fe_sscdx/
 │   └── ARCHITECTURE.md       # Este documento
 ├── public/                   # Assets servidos tal cual, sin procesar por Vite
 │   ├── favicon.svg
-│   ├── logo.svg
+│   ├── logo.png               # Logo real recortado a su bounding box visible (565×62)
+│   ├── team/                  # Fotos reales de liderazgo (TeamSection/TeamCard en /nosotros)
 │   ├── og/default.svg        # Placeholder de Open Graph (ver §5.4)
 │   ├── robots.txt
 │   └── CNAME                 # Dominio personalizado para GitHub Pages
 ├── src/
 │   ├── components/
 │   │   ├── layout/           # Navbar, Footer — presentes en todas las páginas
-│   │   ├── sections/         # Bloques de página (Hero, ServiceCard, ContactForm...)
+│   │   ├── sections/         # Bloques de página (Hero, ServiceCard, SpecialtiesTabs, TeamSection, ContactForm...)
 │   │   ├── seo/               # <SEO /> — metadata, OG, Schema.org
-│   │   └── ui/                # Átomos reutilizables (Button, SectionTitle, Badge...)
+│   │   └── ui/                # Átomos reutilizables (Button, SectionTitle, TechTile, Badge...)
 │   ├── data/                  # Contenido estructurado como TypeScript (no CMS todavía)
 │   │   ├── navigation.ts
 │   │   ├── services.ts
 │   │   ├── projects.ts
-│   │   └── technologies.ts
+│   │   ├── technologies.ts
+│   │   └── team.ts
 │   ├── layouts/
 │   │   ├── BaseLayout.astro          # Shell HTML: head, Navbar, Footer, scripts globales
 │   │   └── SimpleContentLayout.astro # Layout ligero para páginas de solo texto (legal, recursos)
@@ -154,9 +156,9 @@ red adicional. Es la opción de menor costo posible para iconografía en un siti
 
 **¿Por qué datos en TypeScript (`src/data/*.ts`) y no un CMS?**
 El brief indica "sin backend todavía". Modelar servicios/proyectos/tecnologías como arrays
-tipados en TypeScript da **type-safety completo** (un proyecto sin `metrics` no compila) sin
+tipados en TypeScript da **type-safety completo** (una especialidad sin `idealFor` no compila) sin
 introducir infraestructura adicional. Cuando el contenido lo justifique (por ejemplo, que alguien
-de marketing/ventas necesite editar proyectos sin tocar código), la migración natural es a
+de marketing/ventas necesite editar contenido sin tocar código), la migración natural es a
 **Content Collections de Astro** (Markdown/MDX con `zod` schema) o a un headless CMS — ambas
 opciones consumen la misma forma de datos definida en `src/types/index.ts`, por lo que la
 migración no requiere rediseñar componentes.
@@ -164,9 +166,9 @@ migración no requiere rediseñar componentes.
 ### 1.4 Patrones de componentes reutilizables
 
 - **Props tipadas por interfaz `Props` local** en cada `.astro`, nunca `any`.
-- **Composición sobre configuración**: `CTASection`, `ServiceCard`, `ProjectCard` reciben los
-  datos ya resueltos (`Service`, `Project`) en vez de 10 props sueltas — el componente no sabe de
-  dónde vienen los datos, solo cómo pintarlos.
+- **Composición sobre configuración**: `CTASection`, `ServiceCard`, `SpecialtiesTabs`, `TeamCard`
+  reciben los datos ya resueltos (`Service`, `Project`, `TeamMember`) en vez de 10 props sueltas —
+  el componente no sabe de dónde vienen los datos, solo cómo pintarlos.
 - **Slots para contenido variable, props para datos estructurados**: `SectionTitle` usa props
   (`title`, `description`) porque su contenido es texto simple; `SimpleContentLayout` usa
   `<slot />` porque su contenido es HTML rico (varios `<h2>`/`<p>`/`<ul>`).
@@ -292,17 +294,22 @@ contenido nunca se desalinee entre bloques.
 
 | Componente | Ubicación | Responsabilidad |
 |---|---|---|
-| `Navbar` | `layout/` | Navegación fija con fondo que se activa al hacer scroll, menú móvil accesible (`aria-expanded`), CTA "Hablemos". |
-| `Footer` | `layout/` | Enlaces agrupados, redes sociales, copyright dinámico (`new Date().getFullYear()`). |
+| `Navbar` | `layout/` | Navegación fija con fondo translúcido permanente (`bg-ink-950/75 backdrop-blur-xl`, no depende de scroll), menú móvil accesible (`aria-expanded`), CTA "Hablemos". |
+| `Footer` | `layout/` | Logo + enlaces agrupados, copyright dinámico (`new Date().getFullYear()`) — sin párrafo descriptivo ni íconos sociales. |
 | `Hero` | `sections/` | Titular + descripción + doble CTA + fondos decorativos (grid + blobs con `animate-drift`). |
-| `ServiceCard` | `sections/` | Tarjeta de servicio: índice, icono, descripción, lista de bullets. |
-| `ProjectCard` | `sections/` | Tarjeta de caso de referencia: categoría, cliente, métricas cuantitativas, stack. |
-| `TechnologyBadge` | `ui/` | Pill con icono + nombre de tecnología, usado en grillas de stack. |
+| `WhyUs` | `sections/` | "Por qué Siscodex": filas de icono + texto en 2 columnas (sin tarjeta/borde), `title`/`description` opcionales para reutilizar en Home y Nosotros con copy distinto. |
+| `ServiceCard` / `ServicesGrid` | `sections/` | Tarjeta de servicio (índice, icono, descripción, bullets) y la grilla que las agrupa, con `limit` opcional. |
+| `ProcessSection` | `sections/` | Pasos del proceso (`processSteps`) + fila de capacidades de equipo (`processCapabilities`). |
+| `SpecialtiesTabs` | `sections/` | Pestañas de las 5 áreas de especialidad (`src/data/projects.ts`): resumen, capacidades y audiencia (`idealFor`) por área, sin recargar la página. |
+| `TeamSection` / `TeamCard` | `sections/` | Grilla de liderazgo con foto real, nombre y rol (acento `ember-400` en el rol, ver `CLAUDE.md` punto 8). |
+| `TechnologyBadge` | `ui/` | Pill con icono + nombre de tecnología, usado en el stack condensado de Home. |
+| `TechTile` | `ui/` | Tile de tecnología con logo de marca real (`@iconify-json/logos`), usado en el mosaico de `/tecnologia`. |
 | `ContactForm` | `sections/` | Formulario controlado, validación HTML nativa, listo para backend (ver §4.4). |
 | `SectionTitle` | `ui/` | Encabezado de sección (`eyebrow` + `title` + `description`), alineación izquierda o centrada. |
-| `Button` | `ui/` | Renderiza `<a>` o `<button>` según reciba `href`; variantes `primary`/`secondary`/`ghost`. |
+| `Button` | `ui/` | Renderiza `<a>` o `<button>` según reciba `href`; variantes `primary`/`secondary`/`ghost`; envuelve `href` en `withBase()`. |
 | `StatusPill` | `ui/` | Badge con punto pulsante, usado como "eyebrow" en Hero/PageHeader. |
 | `PageHeader` | `sections/` | Cabecera reducida para páginas internas (equivalente a un Hero sin doble CTA). |
+| `CTASection` | `sections/` | Bloque de cierre de página con título/descripción/CTA configurables. |
 | `SEO` | `seo/` | `<title>`, meta description, canonical, Open Graph, Twitter Card, JSON-LD de Organization. |
 
 ### 3.5 Animaciones y microinteracciones
@@ -335,11 +342,11 @@ defaults de Tailwind, sin sobreescribir): `sm` 40rem, `md` 48rem, `lg` 64rem, `x
 
 | Ruta | Objetivo | Secciones principales |
 |---|---|---|
-| `/` | Conversión: que un decisor técnico/de negocio agende contacto. | Hero, Por qué Siscodex, Servicios (destacados), Proceso, Proyectos (destacados), Stack, Contacto |
+| `/` | Conversión: que un decisor técnico/de negocio agende contacto. | Hero, Por qué Siscodex, Servicios (destacados), Proceso, Especialidades (pestañas), Stack, Contacto |
 | `/servicios` | Detalle completo de la oferta. | PageHeader, grilla completa de 6 servicios, Proceso, CTA |
-| `/soluciones` | Prueba social vía casos de referencia. | PageHeader, grilla completa de proyectos, CTA |
-| `/tecnologia` | Credibilidad técnica ante equipos de ingeniería del cliente. | PageHeader, stack agrupado por categoría, CTA |
-| `/nosotros` | Confianza: quién construye el software. | PageHeader, valores, Por qué Siscodex, CTA |
+| `/soluciones` | Especialización respaldada por experiencia real en distintas industrias (no casos de cliente con métricas). | PageHeader, pestañas de las 5 áreas de especialidad con audiencia ideal, CTA |
+| `/tecnologia` | Credibilidad técnica ante equipos de ingeniería del cliente. | PageHeader, mosaico de logos reales agrupado por categoría, CTA |
+| `/nosotros` | Confianza: quién construye el software. | PageHeader, equipo de liderazgo (fotos reales), valores, Por qué Siscodex (misión), cita de cierre, CTA |
 | `/contacto` | Conversión directa. | PageHeader, canales alternativos, formulario completo |
 | `/recursos` | Punto de entrada de documentación para clientes activos. | PageHeader, grilla de recursos, CTA de soporte |
 | `/recursos/*` | Documentación operativa (onboarding, docs de API, SLA, seguridad). | `noindex` — no es contenido de adquisición |
@@ -355,16 +362,23 @@ proyecto", "Agendar una consulta") en vez de genérica ("Enviar").
 
 ### 4.2 Datos estructurados como contenido
 
-`src/data/services.ts`, `projects.ts`, `technologies.ts` y `navigation.ts` son la única fuente de
-verdad de contenido dinámico. Actualizar un servicio, añadir un proyecto real o reordenar la
+`src/data/services.ts`, `projects.ts`, `technologies.ts`, `team.ts` y `navigation.ts` son la única
+fuente de verdad de contenido dinámico. Actualizar un servicio, una especialidad o reordenar la
 navegación es un cambio de datos, no de componente — reduce el riesgo de romper el diseño al
 actualizar contenido.
 
-### 4.3 Sección de proyectos — lista para casos reales
+### 4.3 Especialidades — taxonomía fija, no casos de cliente
 
-`src/data/projects.ts` contiene 4 casos de referencia de ejemplo con la forma de datos completa
-(`metrics`, `technologies`, `category`). Al reemplazarlos por proyectos reales, basta con mantener
-la misma interfaz `Project` (`src/types/index.ts`) — `ProjectCard` no requiere cambios.
+`src/data/projects.ts` (nombre de archivo heredado del scaffold inicial; el tipo se llama
+`Project` pero representa una **especialidad**, no un caso de cliente) define las 5 áreas reales
+de Siscodex: Cloud & Infraestructura, Inteligencia Artificial, Aplicaciones Móviles, Desarrollo Web
+y Salud Digital. Deliberadamente no incluye métricas ni nombres de cliente inventados — cada
+entrada tiene `summary`, `capabilities` (qué incluye) e `idealFor` (a qué tipo de organización le
+sirve, p. ej. "Clínicas y centros médicos"), consumidas por `SpecialtiesTabs.astro`. El caso real
+del sector salud (una plataforma para un banco digital de tejidos) se generaliza a propósito en
+`summary`/`capabilities` ("aplicaciones web médicas", telemedicina) sin nombrar al cliente — ver
+`CLAUDE.md` punto 15. Añadir una especialidad nueva es una entrada más en el array, sin cambios de
+componente, siempre que respete la interfaz `Project` en `src/types/index.ts`.
 
 ### 4.4 Formulario de contacto — listo para backend
 
@@ -399,7 +413,7 @@ Cada página pasa `title`, `description`, `path` (y opcionalmente `image`/`noind
 |---|---|---|
 | Home | Siscodex | Estudio de ingeniería de software: desarrollo a medida, cloud e IA. |
 | Servicios | Servicios · Siscodex | Detalle de los 6 servicios core. |
-| Soluciones | Soluciones · Siscodex | Casos de referencia con métricas. |
+| Soluciones | Soluciones · Siscodex | Especialización respaldada por experiencia real, sin casos de cliente inventados. |
 | Tecnología | Tecnología · Siscodex | Stack por categoría. |
 | Nosotros | Nosotros · Siscodex | Propuesta de valor del equipo. |
 | Contacto | Contacto · Siscodex | Invitación a agendar conversación técnica. |
@@ -467,13 +481,15 @@ PNG/JPG de 1200×630 diseñado por el equipo de marca, manteniendo la misma ruta
   `initScrollReveal` en una comprobación de `matchMedia("(prefers-reduced-motion: reduce)")` si se
   añaden animaciones más notorias en el futuro.
 
-### 6.4 Decisión de diseño: sin fotografía de personas
+### 6.4 Fotografía: sin stock genérico, sí fotos reales de liderazgo
 
-El brief pide explícitamente evitar "imágenes genéricas de personas trabajando". Las referencias
-de Stitch incluían fotos de equipo; se optó por reemplazarlas por elementos gráficos abstractos
-(grid pattern, blobs de gradiente, iconografía técnica) — coherente con el posicionamiento
-"ingeniería / SaaS premium" y evita además el costo de performance y el mantenimiento de un banco
-de imágenes de stock.
+El brief pide explícitamente evitar "imágenes genéricas de personas trabajando" (stock de bancos de
+imágenes). El sitio sigue sin ese tipo de fotografía en Hero, servicios o especialidades — ahí se
+usan elementos gráficos abstractos (grid pattern, blobs de gradiente, iconografía técnica). La
+única excepción, deliberada, es la sección de equipo en `/nosotros` (`TeamSection`/`TeamCard`),
+que usa las 4 fotos reales de los líderes (`public/team/*.jpeg`) precisamente porque ahí el
+objetivo es transparencia ("con quién estás hablando"), no ambientación — es lo opuesto al stock
+genérico que el brief pedía evitar.
 
 ---
 

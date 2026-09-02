@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-  eyebrow = "Software Engineering Studio",
+  eyebrow,
   title,
   highlight,
   description,
@@ -35,7 +35,7 @@ const {
 
   <div class="relative mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl animate-fade-in-up">
-      <StatusPill class="mb-6">{eyebrow}</StatusPill>
+      {eyebrow && <StatusPill class="mb-6">{eyebrow}</StatusPill>}
 
       <h1 class="text-4xl font-semibold leading-[1.1] text-ink-50 sm:text-5xl lg:text-6xl">
         {title}{" "}

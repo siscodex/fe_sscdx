@@ -30,11 +30,11 @@ si vuelve a pasar).
 ```
 src/
 ├── components/
-│   ├── ui/        → átomos sin conocimiento de negocio (Button, SectionTitle, TechnologyBadge, StatusPill)
-│   ├── sections/   → bloques de página (Hero, ServiceCard, ProjectCard, ContactForm, CTASection...)
+│   ├── ui/        → átomos sin conocimiento de negocio (Button, SectionTitle, TechnologyBadge, TechTile, StatusPill)
+│   ├── sections/   → bloques de página (Hero, ServiceCard, SpecialtiesTabs, TeamSection, TeamCard, ContactForm, CTASection...)
 │   ├── layout/     → Navbar, Footer (en todas las páginas)
 │   └── seo/        → <SEO /> (metadata, OG, JSON-LD)
-├── data/           → contenido tipado: services.ts, projects.ts, technologies.ts, navigation.ts
+├── data/           → contenido tipado: services.ts, projects.ts, technologies.ts, team.ts, navigation.ts
 ├── layouts/        → BaseLayout (páginas normales), SimpleContentLayout (legal/recursos)
 ├── pages/          → rutas (file-based routing de Astro)
 ├── scripts/        → reveal.ts (scroll-reveal con la librería "motion")
@@ -63,7 +63,9 @@ y arregló la primera vez que se probó ahí (ver punto 7 de "Historial de decis
 - **Un solo acento de marca: verde esmeralda.** `brand-500 #10b981` / `brand-400 #34d399` es el
   tono principal (botones, iconos, eyebrows). `accent-*` es una variación tonal (verde azulado)
   usada solo para profundidad en gradientes/blobs de fondo — deliberadamente **no** es un segundo
-  color de marca independiente.
+  color de marca independiente. Existe una única excepción puntual: `ember-400 #d38434` (naranja de
+  intensidad equivalente al verde), usado solo como color del label de rol en `TeamCard.astro`
+  (sección de equipo en `/nosotros`) — no es un acento de marca general, no se usa en botones ni CTAs.
 - **Fondo: gris carbón, no negro puro.** `ink-950 #1a1b1e` → `ink-50 #f8f8f9`. Se subió a
   propósito desde un casi-negro (`#0b0c0e`) porque se sentía "demasiado técnico/hacker" para
   audiencia no desarrolladora — ver punto 6 de "Historial de decisiones". Si alguien propone
@@ -117,6 +119,47 @@ propósito para igualar una referencia visual real que compartió el cliente.
    (b) **todo `href`/`src` interno escrito a mano en el markup no** — nav, footer, logo, favicon,
    sitemap. Se creó `src/utils/url.ts` (`withBase()`) y se aplicó en `Button.astro` + cada `<a>`/
    `<img>` interno suelto. Ver la "Segunda regla de oro" arriba.
+8. **Sección de Equipo**: se agregó `TeamSection`/`TeamCard` en `/nosotros` con las 4 fotos reales de
+   liderazgo (`public/team/*.jpeg`). Título/descripción se redactaron a propósito para no insinuar
+   que la empresa son solo 4 personas ("Hablas con el liderazgo desde el primer día — respaldado por
+   un equipo completo detrás de cada proyecto"). Introdujo el acento `ember-400` (ver arriba).
+9. **Soluciones pasó de grilla a pestañas, y de "stack técnico" a "para quién es esto"**: se
+   eliminaron `ProjectsGrid`/`ProjectCard` (mostraban las 5 especialidades como tarjetas fijas) y se
+   reemplazaron por `SpecialtiesTabs.astro` (pestañas, una especialidad visible a la vez, sin
+   navegación extra). El campo `technologies` de `Project` (`src/types/index.ts`) se renombró a
+   `idealFor`: ya no es una lista de tecnologías, es una lista de tipos de organización a los que
+   sirve esa especialidad (p. ej. "Clínicas y centros médicos") — se decidió así porque mostrar
+   stack técnico ahí no le decía nada útil a un cliente no técnico sobre si el área le aplica.
+10. **Mosaico de tecnología con logos reales**: `/tecnologia` pasó de un listado con nombre/letra por
+    tecnología a un mosaico por categoría (`TechTile.astro`) que usa los logos de marca reales vía
+    `@iconify-json/logos` (slugs siempre verificados leyendo `icons.json` del paquete instalado,
+    nunca de memoria). Categorías vigentes: frontend, backend, cloud, aplicaciones móviles,
+    desarrollo 3D (solo VTK, para no dejarla "solita"), DevOps — se quitó "Datos e IA" como
+    categoría propia (Terraform es de infraestructura, no de IA; IA pasó a ser su propia especialidad
+    en Soluciones, no una categoría de stack).
+11. **Footer simplificado**: se quitó el párrafo descriptivo bajo el logo y los íconos de
+    GitHub/LinkedIn — quedó solo el logo centrado a la izquierda y los grupos de enlaces.
+12. **Metodología con más contenido, sin jerga ni negativos**: se agregó `processCapabilities`
+    (Análisis a fondo / Avances visibles / Seguimiento y control / Equipo dedicado) junto a los
+    pasos del proceso, para transmitir capacidad de equipo y seguimiento sin usar términos como
+    "sprints"/"metodologías ágiles" ni frases en negativo como "sin sorpresas" o "no repartido entre
+    diez clientes" (el cliente pidió explícitamente evitar ambas cosas).
+13. **Bug del icono de Next.js dejando una mancha negra al hacer scroll**: es un bug de repintado de
+    Chromium con `<mask>` SVG (el icono de `@iconify-json/logos` usa `<mask>` + gradientes). Se
+    corrigió forzando una capa de composición propia (`transform-gpu` + `will-change-transform` en
+    el wrapper del icono, ver `TechTile.astro`) — si aparece en otro ícono con máscara, es el mismo
+    problema.
+14. **Bug del menú móvil tras la primera navegación SPA**: con `<ClientRouter />` (View Transitions),
+    el script de nivel superior corre una sola vez, así que una referencia de DOM cacheada en el
+    Navbar quedaba obsoleta después de la primera navegación. Se corrigió con *event delegation*
+    sobre `document`/`window` (se adjunta una sola vez, consulta el DOM fresco en el momento del
+    evento) — mismo patrón usado en `SpecialtiesTabs.astro`. Si un componente con estado de cliente
+    deja de responder solo después de navegar una vez, sospechar de esto primero.
+15. **Salud Digital, generalizada**: el único caso real de este sector (una plataforma para un banco
+    digital de tejidos) se referencia en el sitio solo de forma genérica — "aplicaciones web
+    médicas", telemedicina, gestión de información clínica y de laboratorio — sin nombrar nunca al
+    cliente específico. Si se agrega contenido nuevo de este sector, mantener el mismo nivel de
+    generalidad.
 
 ## Pendientes conocidos antes de un lanzamiento real
 
@@ -130,8 +173,10 @@ propósito para igualar una referencia visual real que compartió el cliente.
   publicar (ver `docs/ARCHITECTURE.md` §5.4).
 - `ContactForm.astro` no envía datos a ningún backend todavía — el `TODO` está marcado en su
   `<script>`. `PUBLIC_CONTACT_ENDPOINT` ya existe en `.env.example` para cuando se integre.
-- `src/data/projects.ts` tiene 4 casos de referencia de ejemplo (inventados, no reales) — mantener
-  la misma forma de datos (`Project` en `src/types/index.ts`) al reemplazarlos.
+- `src/data/projects.ts` ya **no** son casos de cliente inventados: son las 5 áreas de
+  especialidad reales de Siscodex (Cloud, IA, Móvil, Web, Salud Digital), pensadas como taxonomía
+  fija, no como placeholders a reemplazar. Si se agrega una especialidad nueva, mantener la forma
+  de datos (`Project` en `src/types/index.ts`: `summary`, `capabilities`, `idealFor`).
 - No hay tests automatizados (deliberado por ahora — ver justificación y estructura recomendada en
   `docs/ARCHITECTURE.md` §8.3).
 
