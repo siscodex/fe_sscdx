@@ -1,61 +1,58 @@
 import type { Project } from "@/types";
 
 /**
- * Casos de referencia. Reemplazar por proyectos reales del portafolio de
- * Siscodex a medida que estén disponibles para publicación pública —
- * mantener la misma forma de datos para no romper `ProjectCard`.
+ * Áreas de especialidad de Siscodex. Deliberadamente genéricas (no casos de
+ * cliente con métricas inventadas) hasta que haya suficientes proyectos
+ * reales publicables por área — mantener la misma forma de datos para no
+ * romper `SpecialtiesTabs`.
  */
 export const projects: Project[] = [
   {
-    slug: "plataforma-logistica-cloud",
-    title: "Plataforma de logística en tiempo real",
-    client: "Operador logístico regional",
+    slug: "cloud-infraestructura",
+    title: "Cloud & Infraestructura",
     category: "cloud",
     summary:
-      "Migración de un sistema monolítico on-premise a una arquitectura de microservicios en la nube, con seguimiento de flotas en tiempo real.",
-    metrics: [
-      { label: "Reducción de costos de infraestructura", value: "38%" },
-      { label: "Tiempo de respuesta de API", value: "<150ms" },
-    ],
-    technologies: ["AWS", "Kubernetes", "PostgreSQL", "React"],
+      "Diseñamos y operamos arquitecturas cloud seguras, escalables y optimizadas en costo, listas para crecer con tu negocio.",
+    capabilities: ["Migración a la nube", "Arquitecturas serverless", "Alta disponibilidad y DR", "Monitoreo y observabilidad 24/7"],
+    idealFor: ["Empresas en crecimiento", "Equipos sin infraestructura propia", "Negocios con picos de tráfico"],
   },
   {
-    slug: "copiloto-interno-ia",
-    title: "Copiloto interno con IA generativa",
-    client: "Empresa de servicios financieros",
+    slug: "inteligencia-artificial",
+    title: "Inteligencia Artificial",
     category: "ia",
     summary:
-      "Asistente interno basado en LLMs para consulta de documentación regulatoria, integrado con el stack de mensajería corporativo.",
-    metrics: [
-      { label: "Reducción en tiempo de búsqueda", value: "70%" },
-      { label: "Adopción del equipo en 3 meses", value: "85%" },
-    ],
-    technologies: ["Claude", "Python", "Vector DB", "AWS Lambda"],
+      "Integramos IA generativa y modelos de machine learning en productos existentes o nuevos, con foco en casos de uso medibles para el negocio.",
+    capabilities: ["Automatización con LLMs", "Agentes y copilotos internos", "Analítica predictiva", "Integración con tus sistemas existentes"],
+    idealFor: ["Equipos con procesos manuales repetitivos", "Empresas con grandes volúmenes de datos", "Negocios que buscan automatizar soporte"],
   },
   {
-    slug: "app-movil-salud",
-    title: "Aplicación móvil de telemedicina",
-    client: "Red de clínicas privadas",
+    slug: "aplicaciones-moviles",
+    title: "Aplicaciones Móviles",
     category: "mobile",
-    summary:
-      "App multiplataforma para agendamiento y consulta remota, con integración a expediente clínico electrónico existente.",
-    metrics: [
-      { label: "Citas agendadas por la app", value: "+12k/mes" },
-      { label: "Calificación en tiendas", value: "4.8/5" },
-    ],
-    technologies: ["React Native", "Node.js", "PostgreSQL"],
+    summary: "Construimos apps móviles nativas y multiplataforma, desde el diseño hasta la publicación en tiendas.",
+    capabilities: ["Apps nativas iOS / Android", "Desarrollo multiplataforma", "Integración con backend existente", "Publicación y mantenimiento en tiendas"],
+    idealFor: ["Equipos que trabajan en campo", "Negocios con clientes móviles", "Empresas que necesitan una app propia"],
   },
   {
-    slug: "portal-b2b-integraciones",
-    title: "Portal B2B con integraciones ERP",
-    client: "Distribuidora industrial",
+    slug: "desarrollo-web",
+    title: "Desarrollo Web",
     category: "web",
+    summary: "Plataformas web robustas y portales a medida, con foco en rendimiento y experiencia de usuario.",
+    capabilities: ["Portales y plataformas a medida", "APIs y microservicios", "Integraciones con sistemas existentes", "Rendimiento y SEO técnico"],
+    idealFor: ["Empresas que superaron una plantilla genérica", "Negocios con procesos internos complejos", "Equipos que necesitan un portal propio"],
+  },
+  {
+    slug: "salud-digital",
+    title: "Salud Digital",
+    category: "health",
     summary:
-      "Portal de autoservicio para clientes mayoristas, con sincronización en tiempo real contra el ERP interno de la compañía.",
-    metrics: [
-      { label: "Pedidos gestionados sin intervención manual", value: "90%" },
-      { label: "Tiempo de onboarding de clientes", value: "-60%" },
+      "Desarrollamos plataformas web y aplicaciones médicas para el sector salud — desde telemedicina hasta gestión de información clínica especializada.",
+    capabilities: [
+      "Aplicaciones web médicas",
+      "Telemedicina y agendamiento",
+      "Gestión de información clínica y de laboratorio",
+      "Cumplimiento y privacidad de datos",
     ],
-    technologies: ["Astro", "TypeScript", "REST/SOAP", "SQL Server"],
+    idealFor: ["Clínicas y centros médicos", "Laboratorios y bancos de datos clínicos", "Organizaciones que manejan información médica sensible"],
   },
 ];

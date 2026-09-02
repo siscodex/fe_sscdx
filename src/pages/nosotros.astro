@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHeader from "@/components/sections/PageHeader.astro";
+import TeamSection from "@/components/sections/TeamSection.astro";
 import WhyUs from "@/components/sections/WhyUs.astro";
 import CTASection from "@/components/sections/CTASection.astro";
 import { Icon } from "astro-icon/components";
@@ -31,9 +32,11 @@ const values = [
 >
   <PageHeader
     eyebrow="Nosotros"
-    title="Un equipo de ingeniería, no una fábrica de tickets"
-    description="Siscodex nació para ofrecer a las empresas el mismo nivel de ingeniería que tendría un equipo interno senior, sin la fricción de contratar y gestionar uno desde cero."
+    title="El equipo detrás de cada proyecto"
+    description="Quienes toman las decisiones técnicas y de negocio, sin capas intermedias — respaldados por un equipo completo detrás de cada proyecto."
   />
+
+  <TeamSection />
 
   <section class="py-16">
     <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
@@ -53,10 +56,25 @@ const values = [
     </div>
   </section>
 
-  <WhyUs />
+  <WhyUs
+    title="Ingeniería con visión estratégica"
+    description="Siscodex ayuda a las organizaciones a crecer y evolucionar sin límites técnicos, liderando el diseño y desarrollo de soluciones de software e infraestructura cloud sólidas, escalables y preparadas para negocios en constante evolución. Combina ingeniería de alto nivel, arquitectura moderna y visión estratégica para transformar desafíos complejos en soluciones eficientes, sostenibles y de alto impacto — como un aliado tecnológico que acompaña a cada cliente desde sus retos actuales hasta sus próximos desafíos de crecimiento."
+  />
+
+  <section class="py-16">
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+      <p class="text-xl font-semibold leading-relaxed text-ink-50 sm:text-2xl">
+        “El verdadero valor de la tecnología no está en definir hasta dónde puede llegar una
+        empresa, sino en hacer posible todo aquello que aún no ha imaginado.”
+      </p>
+      <cite class="mt-4 block font-mono text-xs not-italic uppercase tracking-[0.15em] text-ink-400">
+        — Fherney Silva, CEO de Siscodex
+      </cite>
+    </div>
+  </section>
 
   <CTASection
-    title="¿Quieres conocer al equipo?"
-    description="Agenda una llamada inicial sin costo y conversemos sobre tu proyecto."
+    title="¿Listo para conversar sobre tu proyecto?"
+    description="Agenda una llamada inicial sin costo, directo con el equipo de liderazgo."
   />
 </BaseLayout>

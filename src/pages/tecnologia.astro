@@ -2,8 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHeader from "@/components/sections/PageHeader.astro";
 import CTASection from "@/components/sections/CTASection.astro";
-import TechnologyBadge from "@/components/ui/TechnologyBadge.astro";
-import SectionTitle from "@/components/ui/SectionTitle.astro";
+import TechTile from "@/components/ui/TechTile.astro";
 import { technologies } from "@/data/technologies";
 import type { TechCategory } from "@/types";
 
@@ -11,7 +10,8 @@ const categoryLabels: Record<TechCategory, string> = {
   frontend: "Frontend",
   backend: "Backend",
   cloud: "Cloud & Infraestructura",
-  "data-ia": "Datos & IA",
+  mobile: "Aplicaciones móviles",
+  "3d": "Desarrollo 3D",
   devops: "DevOps",
 };
 
@@ -25,26 +25,32 @@ const categories = Object.keys(categoryLabels) as TechCategory[];
 >
   <PageHeader
     eyebrow="Stack tecnológico"
-    title="Tecnología madura, elegida con criterio"
-    description="No perseguimos tendencias: seleccionamos herramientas probadas en producción, con comunidad activa y soporte a largo plazo."
+    title="Decisiones técnicas con criterio"
+    description="Elegimos tecnologías pensando más allá del presente: estabilidad, escalabilidad, mantenibilidad y capacidad de evolución."
   />
 
   <section class="py-16">
     <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col gap-14">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {
-          categories.map((category) => (
-            <div>
-              <SectionTitle title={categoryLabels[category]} />
-              <div class="mt-6 flex flex-wrap gap-3">
-                {technologies
-                  .filter((tech) => tech.category === category)
-                  .map((tech) => (
-                    <TechnologyBadge name={tech.name} icon={tech.icon} />
+          categories.map((category) => {
+            const items = technologies.filter((tech) => tech.category === category);
+            return (
+              <div class="rounded-xl border border-ink-700 bg-ink-800/30 p-6" data-reveal>
+                <div class="mb-5 flex items-baseline justify-between">
+                  <h3 class="font-display text-lg font-semibold text-ink-50">{categoryLabels[category]}</h3>
+                  <span class="font-mono text-xs text-ink-400">
+                    {items.length} {items.length === 1 ? "tecnología" : "tecnologías"}
+                  </span>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  {items.map((tech) => (
+                    <TechTile name={tech.name} icon={tech.icon} />
                   ))}
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         }
       </div>
     </div>

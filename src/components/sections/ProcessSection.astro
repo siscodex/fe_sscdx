@@ -1,6 +1,7 @@
 ---
+import { Icon } from "astro-icon/components";
 import SectionTitle from "@/components/ui/SectionTitle.astro";
-import { processSteps } from "@/data/services";
+import { processSteps, processCapabilities } from "@/data/services";
 ---
 
 <section class="py-24" id="proceso">
@@ -9,7 +10,7 @@ import { processSteps } from "@/data/services";
       align="center"
       eyebrow="Metodología"
       title="Cómo trabajamos"
-      description="Transparencia y entregas continuas en cada etapa del proyecto."
+      description="Entendemos tu negocio, avanzamos con transparencia y te acompañamos en cada etapa — no solo escribimos código."
       class="mx-auto items-center text-center"
     />
 
@@ -24,6 +25,20 @@ import { processSteps } from "@/data/services";
             </div>
             <h3 class="mt-5 text-base font-semibold text-ink-50">{step.title}</h3>
             <p class="mt-2 text-sm text-ink-300">{step.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-20 grid grid-cols-1 gap-5 border-t border-ink-700 pt-14 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        processCapabilities.map((capability) => (
+          <div class="flex flex-col gap-3" data-reveal>
+            <div class="flex size-10 items-center justify-center rounded-lg bg-brand-400/10 text-brand-300">
+              <Icon name={`lucide:${capability.icon}`} class="size-5" />
+            </div>
+            <h4 class="text-sm font-semibold text-ink-50">{capability.title}</h4>
+            <p class="text-sm text-ink-300">{capability.description}</p>
           </div>
         ))
       }

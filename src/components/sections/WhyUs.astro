@@ -2,28 +2,36 @@
 import { Icon } from "astro-icon/components";
 import SectionTitle from "@/components/ui/SectionTitle.astro";
 import { advantages } from "@/data/services";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Ventaja competitiva construida en cada entrega",
+  description = "Combinamos visión estratégica con ejecución técnica senior para entregar software que impulsa tu negocio.",
+} = Astro.props;
 ---
 
 <section class="border-y border-ink-700 bg-ink-900/60 py-24">
   <div class="mx-auto max-w-(--container-page) px-4 sm:px-6 lg:px-8">
-    <SectionTitle
-      eyebrow="Por qué Siscodex"
-      title="Ventaja competitiva construida en cada entrega"
-      description="Combinamos visión estratégica con ejecución técnica senior para entregar software que impulsa tu negocio."
-    />
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
+      <SectionTitle eyebrow="Por qué Siscodex" title={title} description={description} />
 
-    <div class="mt-12 grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-2">
-      {
-        advantages.map((advantage) => (
-          <div class="flex items-start gap-4" data-reveal>
-            <Icon name={`lucide:${advantage.icon}`} class="mt-0.5 size-5 shrink-0 text-brand-400" />
-            <div>
-              <h3 class="text-base font-semibold text-ink-50">{advantage.title}</h3>
-              <p class="mt-1.5 text-sm text-ink-300">{advantage.description}</p>
+      <div class="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:mt-20">
+        {
+          advantages.map((advantage) => (
+            <div class="flex items-start gap-4" data-reveal>
+              <Icon name={`lucide:${advantage.icon}`} class="mt-0.5 size-5 shrink-0 text-brand-400" />
+              <div>
+                <h3 class="text-base font-semibold text-ink-50">{advantage.title}</h3>
+                <p class="mt-1.5 text-sm text-ink-300">{advantage.description}</p>
+              </div>
             </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
