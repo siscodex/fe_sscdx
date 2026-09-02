@@ -28,6 +28,8 @@ const categoryIcon: Record<Project["category"], string> = {
             <button
               type="button"
               role="tab"
+              id={`specialty-tab-${project.slug}`}
+              aria-controls={`specialty-panel-${project.slug}`}
               aria-selected={i === 0 ? "true" : "false"}
               data-specialty-tab={project.slug}
               class:list={[
@@ -44,7 +46,13 @@ const categoryIcon: Record<Project["category"], string> = {
       <div data-specialty-panels class="mt-10">
         {
           projects.map((project, i) => (
-            <div data-specialty-panel={project.slug} class:list={["", i !== 0 && "hidden"]}>
+            <div
+              id={`specialty-panel-${project.slug}`}
+              role="tabpanel"
+              aria-labelledby={`specialty-tab-${project.slug}`}
+              data-specialty-panel={project.slug}
+              class:list={["", i !== 0 && "hidden"]}
+            >
               <div class="grid grid-cols-1 gap-8 lg:grid-cols-[16rem_1fr] lg:items-center">
                 <div
                   class="flex aspect-square items-center justify-center justify-self-center overflow-hidden rounded-xl border border-ink-700 bg-ink-900/80 lg:aspect-square lg:h-56 lg:w-56"

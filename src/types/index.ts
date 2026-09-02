@@ -1,6 +1,9 @@
 /** Nombre de icono de la colección Lucide (sin prefijo), p.ej. "cloud" o "shield-check". */
 export type IconName = string;
 
+/** Nombre de icono completo con colección (Iconify), p.ej. "logos:react" o "lucide:database-zap". */
+export type IconifyIconName = string;
+
 export interface NavLink {
   label: string;
   href: string;
@@ -50,8 +53,7 @@ export type TechCategory =
 
 export interface Technology {
   name: string;
-  /** Nombre de icono completo con colección, p.ej. "logos:react" o "lucide:database-zap". */
-  icon: IconName;
+  icon: IconifyIconName;
   category: TechCategory;
 }
 
